@@ -25,8 +25,19 @@ async function addTask() {
     getTasks();
 }
 
+async function deleteTask(id) {
+    const response = await fetch(`http://localhost:3000/task/${id}`, {
+        method: "DELETE",
+        headers: {
+            "content-type": "application/json"
+        },
+        body: JSON.stringify({
+            id: id
+        })
+    });
 
-
+    getTasks();
+}
 
 
 function renderTasks(tasks) {
