@@ -1,4 +1,4 @@
-const title = document.getElementById("task");
+const title = document.getElementById("task"); //inspiriert von Diego
 async function getTask(id) {
   const response = await fetch("http://localhost:3000/task/" + id, {
     method: "GET",

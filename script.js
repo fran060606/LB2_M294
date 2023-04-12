@@ -5,13 +5,13 @@ async function getTasks() {
   const response = await fetch("http://localhost:3000/tasks", {
     method: "GET"
   });
-  const json = await response.json();
+  const json = await response.json(); //get Task inspiriert von Diego
 
   renderTasks(json);
 }
 
 async function addTask() {
-  const title = inputTaskElement.value;
+  const title = inputTaskElement.value; //addTask inspiriert von Diego
 
   const response = await fetch("http://localhost:3000/tasks", {
     method: "POST",
@@ -61,19 +61,26 @@ async function logout() {
     method: "POST",
   });
   if (response.ok) {
-    // Benutzer erfolgreich ausgeloggt, weiterleiten auf Login-Seite
     window.location.href = "login.html";
   } else {
-    // Fehler aufgetreten, geben Sie eine Fehlermeldung aus
     alert("Fehler beim Ausloggen");
   }
 }
+async function checkLoggedIn() {
+  const response = await fetch("http://localhost:3000/auth/cookie/status", {
+    credentials: "include",
+  });
+  if (response.status == 401) {
+    window.location.href = "login.html";
+  }
+}
+checkLoggedIn();
 
 
 function renderTasks(tasks) {
   tasksElement.innerHTML = "";
 
-  tasks.forEach(function (item) {
+  tasks.forEach(function (item) { 
     const liElement = document.createElement("li");
     liElement.innerText = item.title;
 
