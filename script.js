@@ -64,12 +64,16 @@ function renderTasks(tasks) {
     liElement.innerText = item.title;
 
     const deleteButton = document.createElement("button");
+    deleteButton.className = "Delete-Edit"
+    deleteButton.id = "deleteButton"
     deleteButton.innerText = "Delete";
     deleteButton.onclick = function () {
         deleteTask(item.id);
     };
 
     const editButton = document.createElement("button");
+    editButton.className = "Delete-Edit"
+    editButton.id = "editButton"
     editButton.innerText = "edit";
     editButton.onclick = function () {
         editTask(item.id);
