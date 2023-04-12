@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login</title>
+</head>
+
+<body>
+
+	<form>
+		<div>
+			<label for="email_input">Username:</label>
+			<input type="text" name="email" id="email_input">
+		</div>
+		<div>
+			<label for="password_input">Passwort:</label>
+			<input type="password" name="password" id="password_input">
+		</div>
+		<button type="button" onclick="tryLogin()">Login</button>
+	</form>
+
+	<script>
+		async function checkLoggedIn() {
+			const response = await fetch("http://localhost:3000/auth/cookie/status", {
+				credentials: "include",
+			})
+
+			if (response.ok) {
+				window.location.href = "index.html"
+			} else if (response.status == 401) {
+				alert("nicht eingeloggt");
+			}
+		}
+
+		async function tryLogin() {
+			const email = document.getElementById("email_input").value
+			const password = document.getElementById("password_input").value
+			const response = await fetch("http://localhost:3000/auth/cookie/login", {
+				credentials: "include",
+				method: "POST",
+				headers: {
+					"content-type": "application/json"
+				},
+				body: JSON.stringify({
+					email: email,
+					password: password
+				})
+			})
+
+			checkLoggedIn()
+		}
+
+		checkLoggedIn()
+	</script>
+</body>
+
+</html>
