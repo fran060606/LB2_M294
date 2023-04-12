@@ -55,6 +55,20 @@ async function editTask(id) {
     });
     getTasks();
 }
+async function logout() {
+  const response = await fetch("http://localhost:3000/auth/cookie/logout", {
+    credentials: "include",
+    method: "POST",
+  });
+  if (response.ok) {
+    // Benutzer erfolgreich ausgeloggt, weiterleiten auf Login-Seite
+    window.location.href = "login.html";
+  } else {
+    // Fehler aufgetreten, geben Sie eine Fehlermeldung aus
+    alert("Fehler beim Ausloggen");
+  }
+}
+
 
 function renderTasks(tasks) {
   tasksElement.innerHTML = "";
