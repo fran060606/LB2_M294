@@ -40,6 +40,26 @@ async function deleteTask(id) {
 }
 
 
+  
+
+
+async function editTask(id) {
+    const newTitle = prompt("Wie soll der Task lauten?");
+    const response = await fetch(`http://localhost:3000/tasks`, {
+        method: "PUT",
+        headers: {
+            "content-type": "application/json"
+        },
+        body: JSON.stringify({
+            id: id, 
+            title: newTitle
+        })
+    });
+    getTasks();
+}
+
+
+
 function renderTasks(tasks) {
     tasksElement.replaceChildren();
 
@@ -53,7 +73,14 @@ function renderTasks(tasks) {
             deleteTask(item.id);
         };
 
+        const editButton = document.createElement("button");
+        editButton.innerText = "edit";
+        editButton.onclick = function () {
+            editTask(item.id);
+        };
+
         liElement.append(deleteButton);
+        liElement.append(editButton);
         tasksElement.append(liElement);
     });
 }
